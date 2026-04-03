@@ -1,0 +1,8 @@
+* The timestamps in this namechange file are stored in Coordinated universal time (UTC).
+"cal_day" "cal_daysInYear" "2019-10-28 10:00:29"
+"sp_CalBeg" "sp_calBeginDate" "2026-04-03 17:40:13"
+"sp_CalEnd" "sp_calEndDate" "2026-04-03 17:40:18"
+"MainModelProcedures" "Main_Model_Procedures" "2026-04-03 17:41:56"
+"p_yearNumber" "p_def_yearNumber" "2026-04-03 17:55:31"
+"SWLitwe" "SQLite_Integration" "2026-04-03 17:56:15"
+"Main_CalendarDemo" "Main_Using_Calendars_in_AIMMS" "2026-04-03 18:09:16"

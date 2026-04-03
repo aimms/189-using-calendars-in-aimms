@@ -1,0 +1,149 @@
+{
+  "application": {
+    "aimms.widget.type": {
+      "literal": "application"
+    },
+    "browser.language": {
+      "aimms": {
+        "contents": [
+          "webui::ClientBrowserLanguage"
+        ]
+      }
+    },
+    "browser.name": {
+      "aimms": {
+        "contents": [
+          "webui::ClientBrowserName"
+        ]
+      }
+    },
+    "browser.timezone": {
+      "aimms": {
+        "contents": [
+          "webui::BrowserTimeZone"
+        ]
+      }
+    },
+    "ignoredst": {
+      "aimms": {
+        "contents": [
+          "webui::IgnoreDST"
+        ]
+      }
+    },
+    "theme.classic": {
+      "literal": "NOT_ALLOWED"
+    },
+    "timezone": {
+      "aimms": {
+        "contents": [
+          "webui::DisplayTimeZone"
+        ]
+      }
+    }
+  },
+  "version": "4.67.0",
+  "pages/home": {
+    "aimms.widget.type": {
+      "literal": "pagev2-grid"
+    },
+    "bindings": {
+      "literal": [
+        {
+          "widgetUri": "tab",
+          "gridArea": "area-a",
+          "dndId": "Unassigned widgetstab0"
+        }
+      ]
+    },
+    "layoutId": {
+      "literal": "Layout10"
+    },
+    "onload": {
+      "aimms": {
+        "run": "pr_readDeliveries"
+      }
+    },
+    "widgets": {
+      "literal": [
+        {
+          "uri": "tab",
+          "layoutInfo": {
+            "width": "3",
+            "height": "1",
+            "customPosition": ""
+          }
+        }
+      ]
+    }
+  },
+  "widgets/tab": {
+    "aimms.widget.type": {
+      "literal": "table"
+    },
+    "contents": {
+      "aimms": {
+        "contents": [
+          "p_deliveries"
+        ]
+      }
+    },
+    "contents.partition": {
+      "literal": {
+        "rowHeader": [
+          "i_ProductName",
+          "i_ProductName",
+          "i_day"
+        ],
+        "colHeader": [],
+        "aggregated": [
+          "<IDENTIFIER-SET>"
+        ]
+      }
+    },
+    "custom.column.widths": {
+      "literal": [
+        {
+          "type": "colHeader",
+          "colKey": {
+            "i_ProductName": "a",
+            "i_day": "Oct 31, 2019"
+          },
+          "width": 15.6
+        },
+        {
+          "type": "colHeader",
+          "colKey": {
+            "i_ProductName": "b",
+            "i_day": "Oct 03, 2019"
+          },
+          "width": 18.163265306122447
+        },
+        {
+          "type": "colHeader",
+          "colKey": {},
+          "width": 24.32
+        },
+        {
+          "type": "rowHeader",
+          "colKey": "i_ProductName",
+          "width": 30.35
+        },
+        {
+          "type": "rowHeader",
+          "colKey": "i_day",
+          "width": 23.56
+        }
+      ]
+    },
+    "name": {
+      "literal": "tab"
+    },
+    "title": {
+      "literal": "Deliveries"
+    },
+    "views": {
+      "literal": {}
+    }
+  }
+}

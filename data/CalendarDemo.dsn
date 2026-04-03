@@ -1,0 +1,8 @@
+[ODBC]
+DRIVER=SQLite3 ODBC Driver
+Database=.\data\CalendarDemo.db
+LongNames=0
+Timeout=1000
+NoTXN=0
+SyncPragma=NORMAL
+StepAPI=0

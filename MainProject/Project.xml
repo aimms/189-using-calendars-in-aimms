@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Project AimmsVersion="26.1.1.1 unicode x64" ProjectUUID="EB2C13DA-4F15-4735-AE7A-92E132340084">
+	<ModelFileName>189-using-calendars-in-aimms.ams</ModelFileName>
+	<AutoSaveAndBackup>
+		<DataBackup AtRegularInterval="true" EveryNMinutes="15" NumBackupsDatedToday="3" NumDaysBeforeToday="3" />
+	</AutoSaveAndBackup>
+</Project>

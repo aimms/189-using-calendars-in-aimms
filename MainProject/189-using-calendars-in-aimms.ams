@@ -1,0 +1,107 @@
+## ams_version=1.0
+
+Model Main_Using_Calendars_in_AIMMS {
+	Section Calendars {
+		Quantity SI_Time_Duration {
+			BaseUnit: s;
+			Conversions: {
+				century->s : #-># * 3153600000,
+				day    ->s : #-># * 86400,
+				hour   ->s : #-># * 3600,
+				minute ->s : #-># * 60,
+				month  ->s : #-># * 2628000,
+				year   ->s : #-># * 31536000
+			}
+			Comment: "Expresses the value for the duration of periods.";
+		}
+		Parameter p_def_yearNumber {
+			InitialData: 2026;
+		}
+		StringParameter sp_calBeginDate {
+			Definition: FormatString("%i-01-01", p_def_yearNumber);
+		}
+		StringParameter sp_calEndDate {
+			Definition: FormatString("%i-12-31", p_def_yearNumber);
+		}
+		Calendar cal_daysInYear {
+			Index: i_day;
+			Parameter: ep_day;
+			Unit: day;
+			BeginDate: sp_calBeginDate;
+			EndDate: sp_calEndDate;
+			TimeslotFormat: "%c%y-%sm-%sd";
+		}
+		DeclarationSection Auxiliar_Sets {
+			Set s_weekendDays {
+				SubsetOf: cal_daysInYear;
+				Definition: {
+					{ i_day | 
+						TimeslotCharacteristic( i_day, 'weekday' ) = 6 or  
+						TimeslotCharacteristic( i_day, 'weekday' ) = 7 }
+				}
+			}
+		}
+	}
+	Section SQLite_Integration {
+		Procedure pr_readDeliveries {
+			Body: {
+				read from table db_deliveries ;
+			}
+		}
+		Set s_productNames {
+			Index: i_productName;
+		}
+		Parameter p_deliveries {
+			IndexDomain: (i_ProductName,i_day);
+		}
+		DatabaseTable db_deliveries {
+			DataSource: "data\\CalendarDemoAccess.dsn";
+			TableName: "DeliveryData";
+			Mapping: {
+				"ProductName"  -->i_productName,
+				"DeliveryDate" -->i_day,
+				"Amount"       -->p_deliveries(i_productName,i_day)
+			}
+		}
+	}
+	Section Main_Model_Procedures {
+		Procedure MainInitialization {
+			Body: {
+				p_def_yearNumber := val( CurrentToString("%c%y") );
+			}
+			Comment: "Add initialization statements here that do NOT require any library being initialized already.";
+		}
+		Procedure PostMainInitialization {
+			Comment: {
+				"Add initialization statements here that require that the libraries are already initialized properly,
+				or add statements that require the Data Management module to be initialized."
+			}
+		}
+		Procedure MainExecution {
+			Body: {
+				ep_day := CurrentToTimeSlot(Calendar : cal_daysInYear );
+			}
+		}
+		Procedure PreMainTermination {
+			Body: {
+				return 1;
+			}
+			Comment: {
+				"Add termination statements here that require all libraries to be still alive.
+				Return 1 if you allow the termination sequence to continue.
+				Return 0 if you want to cancel the termination sequence."
+			}
+		}
+		Procedure MainTermination {
+			Body: {
+				return 1;
+			}
+			Comment: {
+				"Add termination statements here that do not require all libraries to be still alive.
+				Return 1 to allow the termination sequence to continue.
+				Return 0 if you want to cancel the termination sequence.
+				It is recommended to only use the procedure PreMainTermination to cancel the termination sequence and let this procedure always return 1."
+			}
+		}
+	}
+}
