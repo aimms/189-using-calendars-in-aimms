@@ -2,6 +2,7 @@
 
 Model Main_Using_Calendars_in_AIMMS {
 	Section Calendars {
+		Comment: "Contains calendar definitions and time-related identifiers used throughout the model.";
 		Quantity SI_Time_Duration {
 			BaseUnit: s;
 			Conversions: {
@@ -30,29 +31,37 @@ Model Main_Using_Calendars_in_AIMMS {
 			BeginDate: sp_calBeginDate;
 			EndDate: sp_calEndDate;
 			TimeslotFormat: "%c%y-%sm-%sd";
+			Comment: "Defines the calendar spanning all days of the configured year, with daily granularity.";
 		}
 		DeclarationSection Auxiliar_Sets {
+			Comment: "Auxiliary sets derived from the calendar for use in filtering and scheduling logic.";
 			Set s_weekendDays {
 				SubsetOf: cal_daysInYear;
 				Definition: {
-					{ i_day | 
-						TimeslotCharacteristic( i_day, 'weekday' ) = 6 or  
+					{ i_day |
+						TimeslotCharacteristic( i_day, 'weekday' ) = 6 or
 						TimeslotCharacteristic( i_day, 'weekday' ) = 7 }
 				}
+				Comment: "Subset of cal_daysInYear containing only Saturday and Sunday entries.";
 			}
 		}
 	}
 	Section SQLite_Integration {
+		Comment: "Handles reading delivery data from an external database source into the model.";
 		Procedure pr_readDeliveries {
 			Body: {
+				! Read delivery data from the database table db_deliveries into the model.
 				read from table db_deliveries ;
 			}
+			Comment: "Reads delivery records from the external database into p_deliveries.";
 		}
 		Set s_productNames {
 			Index: i_productName;
+			Comment: "The set of product names used as an index for delivery data.";
 		}
 		Parameter p_deliveries {
 			IndexDomain: (i_ProductName,i_day);
+			Comment: "Stores the delivery amount for each product on each calendar day.";
 		}
 		DatabaseTable db_deliveries {
 			DataSource: "data\\CalendarDemoAccess.dsn";
@@ -62,11 +71,14 @@ Model Main_Using_Calendars_in_AIMMS {
 				"DeliveryDate" -->i_day,
 				"Amount"       -->p_deliveries(i_productName,i_day)
 			}
+			Comment: "Database table mapping delivery data from the external source to model identifiers.";
 		}
 	}
 	Section Main_Model_Procedures {
+		Comment: "Contains the main lifecycle procedures for model initialization, execution, and termination.";
 		Procedure MainInitialization {
 			Body: {
+				! Set the year number to the current year using the CurrentToString function.
 				p_def_yearNumber := val( CurrentToString("%c%y") );
 			}
 			Comment: "Add initialization statements here that do NOT require any library being initialized already.";
@@ -79,11 +91,14 @@ Model Main_Using_Calendars_in_AIMMS {
 		}
 		Procedure MainExecution {
 			Body: {
+				! Set ep_day to the current calendar day by mapping the current time to cal_daysInYear.
 				ep_day := CurrentToTimeSlot(Calendar : cal_daysInYear );
 			}
+			Comment: "Executes the main model logic, setting ep_day to the current day in the calendar.";
 		}
 		Procedure PreMainTermination {
 			Body: {
+				! Return 1 to allow the termination sequence to continue.
 				return 1;
 			}
 			Comment: {
@@ -94,6 +109,7 @@ Model Main_Using_Calendars_in_AIMMS {
 		}
 		Procedure MainTermination {
 			Body: {
+				! Return 1 to allow the termination sequence to continue.
 				return 1;
 			}
 			Comment: {
