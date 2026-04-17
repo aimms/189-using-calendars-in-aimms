@@ -6,7 +6,7 @@ This repository contains the **minimal working example (MWE)** discussed in the 
 
 👉 **[Read the Full Article: Hello to the World of AIMMSPY](https://github.com/aimms/679-hello-world-aimmspy)**
 
-## 🚀 Getting Started
+## 🚀 Getting Started 
 1. **Download:** Download the project as a [.zip file](https://github.com/aimms/679-hello-world-aimmspy/archive/refs/heads/main.zip).
 2. **Open:** Launch the `.aimms` file.
 3. **Explore:** Open the **Model Explorer** (Ctrl+M) to examine the implementation logic described in the article.
