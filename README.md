@@ -11,7 +11,7 @@ This repository contains the **minimal working example (MWE)** discussed in the 
 2. **Open:** Launch the `.aimms` file.
 3. **Explore:** Open the **Model Explorer** (Ctrl+M) to examine the implementation logic described in the article.
 
-## 🤝 Support & Feedback 
+## 🤝 Support & Feedback
 
 This example is maintained by the **AIMMS User Support Team**.
 - Found an issue? [Open an issue](https://github.com/aimms/679-hello-world-aimmspy/issues).
